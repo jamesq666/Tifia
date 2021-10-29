@@ -68,7 +68,8 @@ class Referrals
                 'totallevelsreferrals' => $totalLevelsReferrals,
             );
         } else {
-            return 'User has no referrals';
+            echo 'User has no referrals';
+            die;
         }
     }
 
@@ -87,7 +88,8 @@ class Referrals
 
             return array ('referrals' => $referrals, 'tree' => $tree);
         } else {
-            return 'User not found';
+            echo 'User not found';
+            die;
         }
     }
 

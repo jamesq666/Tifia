@@ -10,7 +10,7 @@ class PartnerController extends Controller
     /**
      * Returns values from other functions
      * @param string $client_uid
-     * @param  mixed $dateTo
+     * @param mixed $dateTo
      * @return mixed
      */
     public function actionSend($client_uid, $dateTo)
