@@ -9,6 +9,7 @@ class Profit
     /**
      * Returns data of accounts from database
      * @param string $client_uid
+     * @param string $dateTo
      * @return array
      */
 
@@ -25,7 +26,7 @@ class Profit
     /**
      * Returns values from other functions
      * @param array $referrals
-     * @param mixed $dateTo
+     * @param string $dateTo
      * @return array
      */
     public static function mainFunction($referrals, $dateTo)
