@@ -27,9 +27,9 @@ class PartnerController extends Controller
         echo "\n Total levels referrals: ";
         print_r($referrals['referrals']['totallevelsreferrals']);
         echo "\n Profit: ";
-        print_r($profit[0]['SUM(profit)']);
+        print_r($profit[0]['SUM(trades.profit)']);
         echo "\n Total volume: ";
-        print_r($profit[0]['SUM(volume * coeff_h * coeff_cr)']);
+        print_r($profit[0]['SUM(trades.volume * trades.coeff_h * trades.coeff_cr)']);
         die;
     }
 }

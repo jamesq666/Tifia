@@ -7,26 +7,16 @@ use Yii;
 class Profit
 {
     /**
-     * Returns logins of user from database
-     * @param string $client_uid
-     * @return array
-     */
-    public static function getAccountsFromDB($client_uid)
-    {
-        $sql = "SELECT login FROM accounts WHERE client_uid IN (" . $client_uid . ")";
-        $accounts = Yii::$app->db->createCommand($sql)->queryAll();
-
-        return $accounts;
-    }
-
-    /**
      * Returns data of accounts from database
      * @param string $client_uid
      * @return array
      */
-    public static function getTradesFromDB($logins, $dateTo)
+
+    public static function getTradesFromDB($client_uid, $dateTo)
     {
-        $sql = "SELECT SUM(profit), SUM(volume * coeff_h * coeff_cr) FROM trades WHERE login IN (" . $logins . ") AND close_time < '" . $dateTo . "'";
+        $sql = "SELECT SUM(trades.profit), SUM(trades.volume * trades.coeff_h * trades.coeff_cr) FROM accounts
+                INNER JOIN trades ON accounts.login = trades.login
+                WHERE accounts.client_uid IN (" . $client_uid . ") AND trades.close_time < '" . $dateTo . "'";
         $trades = Yii::$app->db->createCommand($sql)->queryAll();
 
         return $trades;
@@ -48,15 +38,7 @@ class Profit
         }
 
         $clientsList = implode(', ', $clients); //строка client_uid всех рефералов
-        $accounts = self::getAccountsFromDB($clientsList);
-        $logins = []; //массив счетов пользоватлей
-
-        foreach ($accounts as $account){
-            $logins[] = $account['login'];
-        }
-
-        $loginsList = implode(', ', $logins); //строка счетов пользователей
-        $trades = self::getTradesFromDB($loginsList, $dateTo);
+        $trades = self::getTradesFromDB($clientsList, $dateTo);
 
         return $trades;
     }
